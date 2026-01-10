@@ -14,6 +14,10 @@
     },
     "header": {
       "description": "Manage your tasks efficiently"
+    },
+    "detail": {
+      "description": "View task details",
+      "status": "Status"
     }
   }
 }

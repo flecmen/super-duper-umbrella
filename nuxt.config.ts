@@ -16,6 +16,9 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
+  css: [
+    '~/css/styles.scss',
+  ],
   i18n: {
     langDir: 'locales',
     locales: [
