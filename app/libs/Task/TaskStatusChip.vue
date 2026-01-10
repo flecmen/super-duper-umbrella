@@ -15,7 +15,7 @@ const statusStyles: Record<TaskStatus, string> = {
 
 <template>
   <Chip
-    class="h-6"
+    class="h-6.5"
     :class="statusStyles[status]"
     :label="$t(`task.status.${status}`)"
   />

@@ -25,12 +25,11 @@ const props = defineProps<Props>()
     class="w-full rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
   >
     <div class="flex items-center justify-between">
-      <span class="font-medium text-gray-900">{{ task.title }}</span>
+      <p class="font-medium text-gray-900">
+        {{ task.title }}
+      </p>
 
       <TaskStatusChip :status="task.status" />
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-</style>
