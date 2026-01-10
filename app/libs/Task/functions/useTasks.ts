@@ -2,18 +2,18 @@ import { TaskStatus } from '~~/server/types/task-status.enum';
 import type { Task } from '~~/server/types/task.type';
 
 export async function useTasks() {
-    const { data: tasks, status, refresh } = await useAsyncData('tasks', () => $fetch<Task[]>('/api/task'));
+    // useState must be called synchronously before any await
+    const selectedStatuses = useState<TaskStatus[]>('selectedStatuses', () => []);
 
-    const selectedStatus = ref<TaskStatus | 'all'>('all');
+    const { data: tasks, status, refresh } = await useAsyncData('tasks', () => $fetch<Task[]>('/api/task'));
 
     const filteredTasks = computed(() => {
         if (!tasks.value) return [];
-        if (selectedStatus.value === 'all') return tasks.value;
-        return tasks.value.filter((task) => task.status === selectedStatus.value);
+        if (selectedStatuses.value.length === 0) return tasks.value;
+        return tasks.value.filter((task) => selectedStatuses.value.includes(task.status));
     });
 
-    const statusOptions: { value: TaskStatus | 'all'; label: string }[] = [
-        { value: 'all', label: 'All' },
+    const statusOptions: { value: TaskStatus; label: string }[] = [
         { value: TaskStatus.Todo, label: 'To Do' },
         { value: TaskStatus.InProgress, label: 'In Progress' },
         { value: TaskStatus.Done, label: 'Done' },
@@ -21,6 +21,7 @@ export async function useTasks() {
 
     const taskCounts = computed(() => {
         if (!tasks.value) return { all: 0, todo: 0, 'in-progress': 0, done: 0 };
+
         return {
             all: tasks.value.length,
             todo: tasks.value.filter((t) => t.status === 'todo').length,
@@ -34,7 +35,7 @@ export async function useTasks() {
         filteredTasks,
         status,
         refresh,
-        selectedStatus,
+        selectedStatuses,
         statusOptions,
         taskCounts,
     };

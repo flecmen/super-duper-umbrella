@@ -1,5 +1,5 @@
-import { getTasks } from '../utils/task-store';
+import { getTasks } from '../utils/task-store'
 
 export default defineEventHandler(async () => {
-    return getTasks();
-});
+  return getTasks()
+})
