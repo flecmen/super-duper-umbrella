@@ -11,6 +11,9 @@
       "todo": "To Do",
       "in-progress": "In Progress",
       "done": "Done"
+    },
+    "header": {
+      "description": "Manage your tasks efficiently"
     }
   }
 }
