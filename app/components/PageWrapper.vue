@@ -9,16 +9,16 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-    <div class="mx-auto max-w-3xl px-4 py-12">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40">
+    <div class="mx-auto max-w-4xl px-6 py-16">
       <!-- Header Section -->
       <PageHeader
         v-bind="headerProps"
-        class="mb-6"
+        class="mb-8"
       />
 
       <!-- Content Card -->
-      <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+      <div class="rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-lg shadow-gray-200/50 ring-1 ring-gray-200/60">
         <slot />
       </div>
     </div>
