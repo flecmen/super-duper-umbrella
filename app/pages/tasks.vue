@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { useTasks } from '~/libs/Task/functions/useTasks'
+import TasksList from '~/libs/Task/List/TasksList.vue'
 import TaskStatusChip from '~/libs/Task/TaskStatusChip.vue'
-import { TaskStatus } from '~~/server/types/task-status.enum'
+import TaskStatusMultiSelect from '~/libs/Task/TaskStatusMultiSelect.vue'
 
-const { filteredTasks, status, selectedStatuses, statusOptions, taskCounts } = await useTasks()
-
-const statusStyles: Record<TaskStatus, string> = {
-  [TaskStatus.Todo]: 'bg-gray-100 text-gray-700',
-  [TaskStatus.InProgress]: 'bg-blue-100 text-blue-700',
-  [TaskStatus.Done]: 'bg-green-100 text-green-700',
-}
+const { filteredTasks, status, selectedStatuses } = await useTasks()
 </script>
 
 <template>
@@ -26,14 +21,7 @@ const statusStyles: Record<TaskStatus, string> = {
       </div>
 
       <!-- Status Filter Dropdown -->
-      <MultiSelect
-        v-model="selectedStatuses"
-        :options="statusOptions"
-        option-label="label"
-        option-value="value"
-        placeholder="Filter by status"
-        class="w-full max-w-xs"
-      />
+      <TaskStatusMultiSelect v-model="selectedStatuses" />
 
       <!-- Loading State -->
       <div
@@ -50,49 +38,15 @@ const statusStyles: Record<TaskStatus, string> = {
         </div>
       </div>
 
-      <!-- Empty State -->
-      <div
-        v-else-if="filteredTasks.length === 0"
-        class="rounded-lg bg-white py-12 text-center shadow-sm"
-      >
-        <svg
-          class="mx-auto h-12 w-12 text-gray-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-          />
-        </svg>
-        <h3 class="mt-4 text-lg font-medium text-gray-900">
-          No tasks found
-        </h3>
-        <p class="mt-1 text-gray-500">
-          {{ selectedStatuses.length === 0 ? 'Get started by creating a new task.' : `No tasks matching the selected filters.` }}
-        </p>
-      </div>
+      <EmptyState
+        :title="$t('general.emptyState.title', { model: $t('task.self', 2).toLowerCase() })"
+        description="asfsanflaisnflas"
+      />
 
-      <!-- Task List -->
-      <ul
-        v-else
-        class="space-y-3"
-      >
-        <li
-          v-for="task in filteredTasks"
-          :key="task.id"
-          class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-        >
-          <div class="flex items-center justify-between">
-            <span class="font-medium text-gray-900">{{ task.title }}</span>
-
-            <TaskStatusChip :status="task.status" />
-          </div>
-        </li>
-      </ul>
+      <TasksList
+        :tasks="filteredTasks"
+        class="h-150 bg-pinkk"
+      />
     </div>
   </div>
 </template>

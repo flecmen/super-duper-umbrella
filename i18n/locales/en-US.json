@@ -1,0 +1,16 @@
+{
+  "general": {
+    "create": "Create",
+    "emptyState": {
+      "title": "No {model} found"
+    }
+  },
+  "task": {
+    "self": "Task | Tasks",
+    "status": {
+      "todo": "To Do",
+      "in-progress": "In Progress",
+      "done": "Done"
+    }
+  }
+}
