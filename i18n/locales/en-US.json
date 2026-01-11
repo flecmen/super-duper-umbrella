@@ -15,7 +15,9 @@
     "status": {
       "todo": "To Do",
       "in-progress": "In Progress",
-      "done": "Done"
+      "done": "Done",
+      "select": "Select status",
+      "filterBy": "Filter by status"
     },
     "header": {
       "description": "Manage your tasks efficiently"

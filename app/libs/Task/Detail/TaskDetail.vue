@@ -1,33 +1,45 @@
 <script setup lang="ts">
 import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
-import TaskStatusChip from '../TaskStatusChip.vue'
 import { Skeleton } from 'primevue'
+import EditableTaskStatusChip from './chip/EditableTaskStatusChip.vue'
+import type { TaskStatus } from '~~/server/types/task-status.enum'
 
 const store = useTaskDetailStore()
-const { task, isLoading } = storeToRefs(store)
+const { task } = storeToRefs(store)
+const { updateTask } = store
+
+const isUpdateLoading = ref(false)
+const isEditingStatus = ref(false)
+
+async function handleUpdateStatus(newStatus: TaskStatus) {
+  if (!task.value || newStatus === task.value.status) {
+    return
+  }
+
+  isUpdateLoading.value = true
+
+  await updateTask(task.value.id, { status: newStatus })
+
+  isUpdateLoading.value = false
+  isEditingStatus.value = false
+}
 </script>
 
 <template>
-  <!-- Loading State -->
   <div
-    v-if="isLoading"
-    class="flex flex-col gap-4"
-  >
-    <Skeleton
-      width="60%"
-      height="2rem"
-    />
-    <Skeleton width="8rem" />
-  </div>
-
-  <!-- Task Content -->
-  <div
-    v-else-if="task"
+    v-if="task"
     class="flex flex-col gap-4"
   >
     <div class="flex items-center gap-2">
       <span class="text-sm text-gray-500">{{ $t('task.detail.status') }}:</span>
-      <TaskStatusChip :status="task?.status" />
+
+      <EditableTaskStatusChip
+        v-model:is-editing="isEditingStatus"
+        :status="task?.status"
+        :is-loading="isUpdateLoading"
+        editable
+        @save="handleUpdateStatus"
+      />
     </div>
   </div>
 </template>

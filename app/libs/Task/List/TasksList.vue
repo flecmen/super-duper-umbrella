@@ -32,7 +32,10 @@ const props = defineProps<Props>()
 
     <!-- Empty state -->
     <template v-else>
-      <EmptyState :title="$t('general.emptyState.title', { model: $t('task.self', 2).toLowerCase() })" />
+      <EmptyState
+        :title="$t('general.emptyState.title', { model: $t('task.self', 2).toLowerCase() })"
+        no-btn
+      />
     </template>
   </div>
 </template>

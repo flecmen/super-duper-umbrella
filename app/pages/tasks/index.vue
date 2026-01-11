@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTasks } from '~/libs/Task/functions/useTasks'
 import TasksList from '~/libs/Task/List/TasksList.vue'
-import TaskStatusMultiSelect from '~/libs/Task/TaskStatusMultiSelect.vue'
+import TaskStatusMultiSelect from '~/libs/Task/Detail/chip/TaskStatusMultiSelect.vue'
 
 const { filteredTasks, status, selectedStatuses } = await useTasks()
 </script>

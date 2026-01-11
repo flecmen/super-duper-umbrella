@@ -2,21 +2,22 @@
 import { TaskStatus } from '~~/server/types/task-status.enum'
 
 type Props = {
-  modelValue: TaskStatus[]
+  modelValue: TaskStatus
+  placeholder?: string
 }
 defineProps<Props>()
 
-const selectedStatuses = defineModel<Props['modelValue']>()
+const selectedStatus = defineModel<Props['modelValue']>()
 
 const statusOptions = Object.values(TaskStatus)
 </script>
 
 <template>
-  <MultiSelect
-    v-model="selectedStatuses"
+  <Select
+    v-model="selectedStatus"
     :options="statusOptions"
     :option-label="(option: TaskStatus) => $t(`task.status.${option}`)"
-    placeholder="Filter by status"
+    :placeholder="placeholder ?? $t('task.status.select')"
     class="w-full max-w-xs"
   />
 </template>

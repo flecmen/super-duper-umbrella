@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { TaskStatus } from '~~/server/types/task-status.enum'
+import type { TaskStatusChipProps } from './types/task-status-chip-props'
 
-type Props = {
-  status: TaskStatus
-}
-defineProps<Props>()
+defineProps<TaskStatusChipProps>()
 
 const statusStyles: Record<TaskStatus, string> = {
   [TaskStatus.Todo]: 'bg-gray-100 text-gray-700',
