@@ -9,6 +9,12 @@ type Props = {
   isLoading?: boolean
 }
 const props = defineProps<Props>()
+
+function handleClick() {
+  if (props.task) {
+    navigateTo(`/tasks/${props.task.id}`)
+  }
+}
 </script>
 
 <template>
@@ -22,7 +28,8 @@ const props = defineProps<Props>()
 
   <div
     v-else-if="task"
-    class="w-full rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+    class="w-full rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md cursor-pointer"
+    @click="handleClick"
   >
     <div class="flex items-center justify-between">
       <p class="font-medium text-gray-900">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TaskDetail from '~/libs/Task/TaskDetail.vue'
 import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
+import TaskDetail from '~/libs/Task/TaskDetail.vue'
 
 definePageMeta({
   middleware: ['validate-task-id'],
@@ -9,27 +9,22 @@ definePageMeta({
 const route = useRoute()
 const id = computed(() => Number(route.params.id))
 
+// Initialize task detail store with the current task ID
 const store = useTaskDetailStore()
-const { task, isLoading, error } = storeToRefs(store)
+const { task, error } = storeToRefs(store)
+const { updateTask } = store
 
-// Fetch task on mount
-onMounted(() => {
-  store.fetchTask(id.value)
-})
-
-// Refetch if id changes
-watch(id, newId => {
-  store.fetchTask(newId)
-})
+// Initialize useAsyncData through the store
+const { error: asyncError } = store.initializeTask(id.value)
 
 // Redirect to 404 if task not found
-watch(error, err => {
-  if (err) {
+watch([error, asyncError], ([storeErr, dataErr]) => {
+  if (storeErr || dataErr) {
     navigateTo('/404', { replace: true })
   }
 }, { immediate: true })
 
-// Reset store on unmount
+// Reset store when leaving the page
 onUnmounted(() => {
   store.$reset()
 })
@@ -38,11 +33,11 @@ onUnmounted(() => {
 <template>
   <PageWrapper
     :header-props="{
-      title: task?.title ?? $t('task.self', 1),
-      description: $t('task.detail.description'),
+      title: task?.title,
       backTo: '/tasks',
+      editable: true,
+      editFn: (newTitle: string) => updateTask(id, { title: newTitle }),
     }"
-    :is-loading
   >
     <TaskDetail />
   </PageWrapper>

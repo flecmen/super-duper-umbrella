@@ -1,7 +1,27 @@
 <script setup lang="ts">
 import type { PageHeaderProps } from './types/page-header-props.type'
+import InlineTextEdit from './InlineTextEdit.vue'
+import { value } from '@primeuix/themes/aura/knob'
 
 const props = defineProps<PageHeaderProps>()
+
+const titleComponent = computed(() => {
+  return props.editable && props.editFn ? InlineTextEdit : 'div'
+})
+
+// Editing state
+const isEditing = ref(false)
+const isUpdateLoading = ref(false)
+
+async function handleEdit(newTitle: string) {
+  if (props.editFn) {
+    isUpdateLoading.value = true
+    await props.editFn(newTitle)
+
+    isUpdateLoading.value = false
+    isEditing.value = false
+  }
+}
 </script>
 
 <template>
@@ -26,9 +46,17 @@ const props = defineProps<PageHeaderProps>()
     </div>
 
     <div v-else>
-      <h1 class="text-3xl font-bold text-gray-900">
-        {{ title }}
-      </h1>
+      <component
+        :is="titleComponent"
+        v-model:is-editing="isEditing"
+        :is-loading="isUpdateLoading"
+        :value="title"
+        @save="handleEdit"
+      >
+        <h1 class="text-3xl font-bold text-gray-900">
+          {{ title }}
+        </h1>
+      </component>
 
       <p class="mt-1 text-gray-500">
         {{ description }}
