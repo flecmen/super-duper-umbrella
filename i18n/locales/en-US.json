@@ -1,6 +1,7 @@
 {
   "general": {
     "create": "Create",
+    "edit": "Edit",
     "emptyState": {
       "title": "No {model} found"
     }

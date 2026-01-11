@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useTask } from '~/libs/Task/functions/useTask'
 import TaskDetail from '~/libs/Task/TaskDetail.vue'
+import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
 
 definePageMeta({
   middleware: ['validate-task-id'],
@@ -9,7 +9,18 @@ definePageMeta({
 const route = useRoute()
 const id = computed(() => Number(route.params.id))
 
-const { task, status, error } = useTask(id.value)
+const store = useTaskDetailStore()
+const { task, isLoading, error } = storeToRefs(store)
+
+// Fetch task on mount
+onMounted(() => {
+  store.fetchTask(id.value)
+})
+
+// Refetch if id changes
+watch(id, newId => {
+  store.fetchTask(newId)
+})
 
 // Redirect to 404 if task not found
 watch(error, err => {
@@ -18,7 +29,10 @@ watch(error, err => {
   }
 }, { immediate: true })
 
-const isLoading = computed(() => status.value === 'pending' || status.value === 'error')
+// Reset store on unmount
+onUnmounted(() => {
+  store.$reset()
+})
 </script>
 
 <template>
@@ -30,9 +44,6 @@ const isLoading = computed(() => status.value === 'pending' || status.value === 
     }"
     :is-loading
   >
-    <TaskDetail
-      :task="task"
-      :is-loading
-    />
+    <TaskDetail />
   </PageWrapper>
 </template>

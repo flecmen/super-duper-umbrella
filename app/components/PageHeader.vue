@@ -14,8 +14,15 @@ const props = defineProps<PageHeaderProps>()
     />
 
     <div v-if="isLoading">
-      <Skeleton width="12rem" height="2rem" class="mb-2" />
-      <Skeleton width="20rem" height="1rem" />
+      <Skeleton
+        width="12rem"
+        height="2rem"
+        class="mb-2"
+      />
+      <Skeleton
+        width="20rem"
+        height="1rem"
+      />
     </div>
 
     <div v-else>
