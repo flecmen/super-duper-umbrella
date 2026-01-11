@@ -1,11 +1,13 @@
 // Types
 import type { TaskStatus } from '~~/server/types/task-status.enum'
-import type { Task } from '~~/server/types/task.type'
 
-export async function useTasks() {
+export function useTasks() {
   const selectedStatuses = useState<TaskStatus[]>('selectedStatuses', () => [])
 
-  const { data: tasks, status, refresh } = await useAsyncData('tasks', () => $fetch<Task[]>('/api/tasks'))
+  const { data: tasks, status, refresh } = useAsyncData(
+    'tasks-list',
+    () => $fetch('/api/tasks'),
+  )
 
   const filteredTasks = computed(() => {
     if (!tasks.value)
