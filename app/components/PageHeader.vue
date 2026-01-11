@@ -13,10 +13,16 @@ const props = defineProps<PageHeaderProps>()
       @click="navigateTo(backTo)"
     />
 
-    <div>
+    <div v-if="isLoading">
+      <Skeleton width="12rem" height="2rem" class="mb-2" />
+      <Skeleton width="20rem" height="1rem" />
+    </div>
+
+    <div v-else>
       <h1 class="text-3xl font-bold text-gray-900">
         {{ title }}
       </h1>
+
       <p class="mt-1 text-gray-500">
         {{ description }}
       </p>

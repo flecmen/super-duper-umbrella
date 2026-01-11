@@ -17,6 +17,8 @@ watch(error, err => {
     navigateTo('/404', { replace: true })
   }
 }, { immediate: true })
+
+const isLoading = computed(() => status.value === 'pending' || status.value === 'error')
 </script>
 
 <template>
@@ -26,10 +28,11 @@ watch(error, err => {
       description: $t('task.detail.description'),
       backTo: '/tasks',
     }"
+    :is-loading
   >
     <TaskDetail
       :task="task"
-      :is-loading="status === 'pending'"
+      :is-loading
     />
   </PageWrapper>
 </template>

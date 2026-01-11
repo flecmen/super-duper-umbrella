@@ -3,6 +3,7 @@ import type { PageHeaderProps } from './types/page-header-props.type'
 
 type Props = {
   headerProps?: PageHeaderProps
+  isLoading?: boolean
 }
 
 const props = defineProps<Props>()
@@ -14,6 +15,7 @@ const props = defineProps<Props>()
       <!-- Header Section -->
       <PageHeader
         v-bind="headerProps"
+        :is-loading
         class="mb-8"
       />
 
