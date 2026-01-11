@@ -1,8 +1,12 @@
 <script setup lang="ts">
+// Types
 import type { TaskStatus } from '~~/server/types/task-status.enum'
-import TaskStatusSelect from './TaskStatusSelect.vue'
-import type { TaskStatusChipProps } from './types/task-status-chip-props'
-import TaskStatusChip from './TaskStatusChip.vue'
+import type { TaskStatusChipProps } from '~/libs/Task/Detail/chip/types/task-status-chip-props'
+
+// Components
+import TaskStatusSelect from '~/libs/Task/Detail/chip/TaskStatusSelect.vue'
+import TaskStatusChip from '~/libs/Task/Detail/chip/TaskStatusChip.vue'
+import InlineEdit from '~/libs/App/components/InlineEdit.vue'
 
 type Props = TaskStatusChipProps & {
   isLoading?: boolean

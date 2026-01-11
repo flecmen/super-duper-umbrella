@@ -1,8 +1,10 @@
 <script setup lang="ts">
+// Types
 import type { Task } from '~~/server/types/task.type'
 
-import TaskStatusChip from '~/libs/Task/Detail/chip/TaskStatusChip.vue'
+// Components
 import { Skeleton } from 'primevue'
+import TaskStatusChip from '~/libs/Task/Detail/chip/TaskStatusChip.vue'
 
 type Props = {
   task?: Task

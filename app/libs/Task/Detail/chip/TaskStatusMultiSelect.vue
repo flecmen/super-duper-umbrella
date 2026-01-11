@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Enums
 import { TaskStatus } from '~~/server/types/task-status.enum'
 
 type Props = {

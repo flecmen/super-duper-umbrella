@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
+// Components
+import PageWrapper from '~/libs/App/components/PageWrapper.vue'
 import TaskDetail from '~/libs/Task/Detail/TaskDetail.vue'
+
+// Store
+import { useTaskDetailStore } from '~/libs/Task/Detail/stores/useTaskDetailStore'
 
 definePageMeta({
   middleware: ['validate-task-id'],

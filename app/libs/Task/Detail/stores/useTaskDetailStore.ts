@@ -1,4 +1,7 @@
+// Types
 import type { Task } from '~~/server/types/task.type'
+
+// Functions
 import { useNuxtApp } from '#app'
 
 export const useTaskDetailStore = defineStore('taskDetail', () => {
@@ -8,13 +11,15 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
 
   const hasValidTaskId = computed(() => taskId.value !== null && taskId.value > 0)
 
+  const asyncDataKey = computed(() => `task-detail-${taskId.value}`)
+
   const {
     data: task,
     status,
     error: fetchError,
     refresh: refetchTask,
   } = useAsyncData(
-    () => `task-detail-${taskId.value}`,
+    asyncDataKey,
     () => {
       if (!hasValidTaskId.value) {
         return Promise.resolve(null)

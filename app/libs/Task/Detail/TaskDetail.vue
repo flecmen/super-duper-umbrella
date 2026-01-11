@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
-import { Skeleton } from 'primevue'
-import EditableTaskStatusChip from './chip/EditableTaskStatusChip.vue'
+// Stores
+import { useTaskDetailStore } from '~/libs/Task/Detail/stores/useTaskDetailStore'
+
+// Components
+import EditableTaskStatusChip from '~/libs/Task/Detail/chip/EditableTaskStatusChip.vue'
+
+// Types
 import type { TaskStatus } from '~~/server/types/task-status.enum'
 
 const store = useTaskDetailStore()

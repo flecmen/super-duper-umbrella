@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import EditButton from './EditButton.vue'
-import InlineEdit from './InlineEdit.vue'
+// Components
+import InlineEdit from '~/libs/App/components/InlineEdit.vue'
 
 type Props = {
   value?: string
@@ -17,7 +17,7 @@ const emit = defineEmits<{
 <template>
   <InlineEdit
     v-bind="props"
-    @save="emit('save', $event)"
+    @save="emit('save', $event as string)"
     @cancel="emit('cancel')"
   >
     <template #value>
@@ -26,7 +26,7 @@ const emit = defineEmits<{
 
     <template #input="{ editValue, updateValue, save, cancel }">
       <InputText
-        :model-value="editValue"
+        :model-value="editValue as string"
         type="text"
         autofocus
         @update:model-value="updateValue"

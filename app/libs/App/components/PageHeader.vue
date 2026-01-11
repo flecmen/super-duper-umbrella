@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import type { PageHeaderProps } from './types/page-header-props.type'
-import InlineTextEdit from './InlineTextEdit.vue'
+// Types
+import type { PageHeaderProps } from '~/libs/App/components/types/page-header-props.type'
+
+// Components
+import InlineTextEdit from '~/libs/App/components/InlineTextEdit.vue'
 
 const props = defineProps<PageHeaderProps>()
 

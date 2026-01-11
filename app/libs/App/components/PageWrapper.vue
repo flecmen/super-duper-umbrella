@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import type { PageHeaderProps } from './types/page-header-props.type'
+// types
+import type { PageHeaderProps } from '~/libs/App/components/types/page-header-props.type'
+
+// Components
+import PageHeader from '~/libs/App/components/PageHeader.vue'
 
 type Props = {
   headerProps?: PageHeaderProps

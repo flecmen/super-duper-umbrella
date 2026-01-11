@@ -1,5 +1,7 @@
 <script setup lang="ts">
-navigateTo('/tasks')
+definePageMeta({
+  redirect: '/tasks',
+})
 </script>
 
 <template>

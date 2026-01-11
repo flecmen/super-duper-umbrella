@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EditButton from './EditButton.vue'
+import EditButton from '~/libs/App/components/EditButton.vue'
 
 type Props = {
   value?: unknown

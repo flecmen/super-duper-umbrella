@@ -1,6 +1,10 @@
 <script setup lang="ts">
+// Types
 import type { Task } from '~~/server/types/task.type'
-import TaskListItem from './TaskListItem.vue'
+
+// Components
+import TaskListItem from '~/libs/Task/List/TaskListItem.vue'
+import EmptyState from '~/libs/App/components/EmptyState.vue'
 
 type Props = {
   tasks: Task[]

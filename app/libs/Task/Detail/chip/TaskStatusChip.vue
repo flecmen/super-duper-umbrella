@@ -1,6 +1,9 @@
 <script setup lang="ts">
+// Enums
 import { TaskStatus } from '~~/server/types/task-status.enum'
-import type { TaskStatusChipProps } from './types/task-status-chip-props'
+
+// Types
+import type { TaskStatusChipProps } from '~/libs/Task/Detail/chip/types/task-status-chip-props'
 
 defineProps<TaskStatusChipProps>()
 
