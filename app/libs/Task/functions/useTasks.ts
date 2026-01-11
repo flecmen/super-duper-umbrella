@@ -4,7 +4,7 @@ import type { Task } from '~~/server/types/task.type'
 export async function useTasks() {
   const selectedStatuses = useState<TaskStatus[]>('selectedStatuses', () => [])
 
-  const { data: tasks, status, refresh } = await useAsyncData('tasks', () => $fetch<Task[]>('/api/task'))
+  const { data: tasks, status, refresh } = await useAsyncData('tasks', () => $fetch<Task[]>('/api/tasks'))
 
   const filteredTasks = computed(() => {
     if (!tasks.value)

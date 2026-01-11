@@ -19,10 +19,6 @@ watch(id, newId => {
 
 const { updateTask } = store
 
-watch(id, newId => {
-  taskId.value = newId
-})
-
 watch(fetchError, err => {
   if (err) {
     navigateTo('/404', { replace: true })

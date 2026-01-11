@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { start } from 'node:repl'
-
 type Props = {
   value?: string
   isLoading?: boolean
