@@ -13,11 +13,15 @@ const id = computed(() => Number(route.params.taskId))
 const store = useTaskDetailStore()
 const { task, fetchError, taskId } = storeToRefs(store)
 
-watch(id, newId => {
-  taskId.value = newId
-}, { immediate: true })
-
 const { updateTask } = store
+
+watch(
+  id,
+  newId => {
+    taskId.value = newId
+  },
+  { immediate: true },
+)
 
 watch(fetchError, err => {
   if (err) {

@@ -1,5 +1,4 @@
 import type { Task } from '~~/server/types/task.type'
-import type { AsyncDataRequestStatus } from '#app'
 import { useNuxtApp } from '#app'
 
 export const useTaskDetailStore = defineStore('taskDetail', () => {
@@ -20,11 +19,12 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
       if (!hasValidTaskId.value) {
         return Promise.resolve(null)
       }
+
       return $fetch<Task>(`/api/tasks/${taskId.value}`)
     },
     {
       watch: [taskId],
-      immediate: false,
+      immediate: true,
     },
   )
 
