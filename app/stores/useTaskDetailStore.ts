@@ -1,12 +1,14 @@
 import type { Task } from '~~/server/types/task.type'
 import type { AsyncDataRequestStatus } from '#app'
+import { useNuxtApp } from '#app'
 
 export const useTaskDetailStore = defineStore('taskDetail', () => {
   // State
   const taskId = ref<number | null>(null)
   const task = ref<Task | null>(null)
   const status = ref<AsyncDataRequestStatus>('idle')
-  const error = ref<Error | null>(null)
+  const fetchError = ref<Error | null>(null)
+  const updateError = ref<Error | null>(null)
   const isSaving = ref(false)
 
   // Private refresh function - set by initializeTask
@@ -39,7 +41,7 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
 
     watch(asyncData.error, newError => {
       if (newError) {
-        error.value = newError as Error
+        fetchError.value = newError as Error
       }
     }, { immediate: true })
 
@@ -56,7 +58,7 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
    */
   async function updateTask(id: number, data: Partial<Task>) {
     isSaving.value = true
-    error.value = null
+    updateError.value = null
 
     try {
       await $fetch<Task>(`/api/tasks/${id}`, {
@@ -71,11 +73,28 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
 
       return true
     } catch (e) {
-      error.value = e as Error
+      updateError.value = e as Error
+
+      // Show error toast
+      const { $i18n } = useNuxtApp()
+      useNuxtApp().$toast?.add({
+        severity: 'error',
+        summary: $i18n.t('general.error.title'),
+        detail: $i18n.t('general.error.update'),
+        life: 5000,
+      })
+
       return false
     } finally {
       isSaving.value = false
     }
+  }
+
+  /**
+   * Clear update error
+   */
+  function clearUpdateError() {
+    updateError.value = null
   }
 
   /**
@@ -91,7 +110,8 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
     taskId.value = null
     task.value = null
     status.value = 'idle'
-    error.value = null
+    fetchError.value = null
+    updateError.value = null
     isSaving.value = false
     _refresh = null
   }
@@ -101,7 +121,8 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
     taskId,
     task,
     status,
-    error,
+    fetchError,
+    updateError,
     isSaving,
     // Computed
     isLoading,
@@ -109,6 +130,7 @@ export const useTaskDetailStore = defineStore('taskDetail', () => {
     initializeTask,
     updateTask,
     refreshTask,
+    clearUpdateError,
     $reset,
   }
 })

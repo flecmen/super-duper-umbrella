@@ -4,7 +4,7 @@ import TaskStatusChip from './TaskStatusChip.vue'
 import { Skeleton } from 'primevue'
 
 const store = useTaskDetailStore()
-const { task, isLoading, error } = storeToRefs(store)
+const { task, isLoading } = storeToRefs(store)
 </script>
 
 <template>
@@ -29,10 +29,5 @@ const { task, isLoading, error } = storeToRefs(store)
       <span class="text-sm text-gray-500">{{ $t('task.detail.status') }}:</span>
       <TaskStatusChip :status="task?.status" />
     </div>
-  </div>
-
-  <!-- Error State -->
-  <div v-if="error">
-    {{ error }}
   </div>
 </template>

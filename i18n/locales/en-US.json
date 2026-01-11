@@ -4,6 +4,10 @@
     "edit": "Edit",
     "emptyState": {
       "title": "No {model} found"
+    },
+    "error": {
+      "title": "Error",
+      "update": "Failed to save changes. Please try again."
     }
   },
   "task": {
