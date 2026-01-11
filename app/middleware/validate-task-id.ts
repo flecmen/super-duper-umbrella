@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(to => {
-  const id = to.params.id as string
+  const id = to.params.taskId as string
 
   // Check if ID is a valid positive integer
   const numericId = Number(id)

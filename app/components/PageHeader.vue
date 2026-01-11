@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { PageHeaderProps } from './types/page-header-props.type'
 import InlineTextEdit from './InlineTextEdit.vue'
-import { value } from '@primeuix/themes/aura/knob'
 
 const props = defineProps<PageHeaderProps>()
 
@@ -16,6 +15,7 @@ const isUpdateLoading = ref(false)
 async function handleEdit(newTitle: string) {
   if (props.editFn) {
     isUpdateLoading.value = true
+
     await props.editFn(newTitle)
 
     isUpdateLoading.value = false

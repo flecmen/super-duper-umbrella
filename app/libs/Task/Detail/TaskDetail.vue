@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
-import TaskStatusChip from './TaskStatusChip.vue'
+import TaskStatusChip from '../TaskStatusChip.vue'
 import { Skeleton } from 'primevue'
 
 const store = useTaskDetailStore()

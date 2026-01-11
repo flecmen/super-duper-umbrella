@@ -15,7 +15,7 @@ const statusOptions = Object.values(TaskStatus)
   <MultiSelect
     v-model="selectedStatuses"
     :options="statusOptions"
-    :option-label="option => $t(`task.status.${option}`)"
+    :option-label="(option: TaskStatus) => $t(`task.status.${option}`)"
     placeholder="Filter by status"
     class="w-full max-w-xs"
   />

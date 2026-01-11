@@ -1,30 +1,34 @@
 <script setup lang="ts">
 import { useTaskDetailStore } from '~/stores/useTaskDetailStore'
-import TaskDetail from '~/libs/Task/TaskDetail.vue'
+import TaskDetail from '~/libs/Task/Detail/TaskDetail.vue'
 
 definePageMeta({
   middleware: ['validate-task-id'],
 })
 
 const route = useRoute()
-const id = computed(() => Number(route.params.id))
+const id = computed(() => Number(route.params.taskId))
 
 // Initialize task detail store with the current task ID
 const store = useTaskDetailStore()
-const { task, fetchError } = storeToRefs(store)
+const { task, fetchError, taskId } = storeToRefs(store)
+
+watch(id, newId => {
+  taskId.value = newId
+}, { immediate: true })
+
 const { updateTask } = store
 
-// Initialize useAsyncData through the store
-store.initializeTask(id.value)
+watch(id, newId => {
+  taskId.value = newId
+})
 
-// Redirect to 404 only if task fetch fails (not found)
 watch(fetchError, err => {
   if (err) {
     navigateTo('/404', { replace: true })
   }
 }, { immediate: true })
 
-// Reset store when leaving the page
 onUnmounted(() => {
   store.$reset()
 })
